@@ -6,14 +6,6 @@ My first implemenation was filled with hilarity as I __free()__'d everything und
 
 This motivated me to read the documentation.
 
-My second implemenation was to include __free(cleaned)__ in __is_clean__, directly before the return statement. This made a lot of sense, since this was the only pointer-variable that wasn't a paramater.
+The main issue that needs to be understood is where memory leaks can happen. Non-pointer variables locally created in functions do not need to be freed, and neither do paramaters, regardless of their pointer status. This leaves local pointer values as possible memory leaks. Essentialy anywhere that __malloc__ or __calloc__ is called, you should expect to see a corresponding __free()__.
 
-Further errors.
-
-It took me quite a bit longer to realise that the empty string was messing the culprit. I messed around a bit, and concluded that __free()__ couldn't be called on an empty string.
-
-My third implemenation correctly caught the use-case of an empty __cleaned__ variable.
-
-I hope this explains my thinking, and excuses my lack of meaningfull commits.
-
-~Liam Koehler (SirLich)
+My implemenation was nothing more than free()ing the only variable that fit the above, with some attention paid to the empty-string case.
